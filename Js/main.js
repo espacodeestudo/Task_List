@@ -3,10 +3,15 @@ const ListTask = JSON.parse(localStorage.getItem("Task")) || []
 
 async function AddTask() {
     const Task = await document.querySelector("#Task").value
-    ListTask.unshift({ text: Task })
+    if(!Task){
+        alert("Preencha o campo")
+    }
+    else{
+        ListTask.unshift({ text: Task })
 
-    localStorage.setItem("Task", JSON.stringify(ListTask))
-    RenderCard()
+        localStorage.setItem("Task", JSON.stringify(ListTask))
+        RenderCard()
+    }
 }
 
 function RenderCard() {
@@ -25,6 +30,12 @@ function RenderCard() {
                 Card.innerHTML = `
                 <div class="Task">
                 <h2>${task.text} </h2>
+                </div>
+                <div class="Btn-Task">
+                
+                <button class="Btn-edit" >Editar</button>
+                <button class="Btn-delete" >delete</button>
+                
                 </div>
                 `
                 return ContainerTask.appendChild(Card)
