@@ -113,3 +113,19 @@ padding:1rem 5rem;
     align-items: center;
     column-gap: 1rem;
 }
+
+.Btn-Task > button{
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+.Btn-Task > .Btn-edit{
+    background: #00b135e8;
+}
+
+.Btn-Task > .Btn-delete{
+    background: #b10000e8;
+}
