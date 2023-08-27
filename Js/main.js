@@ -1,5 +1,6 @@
 const Button = document.querySelector("button[type='submit']")
 const ButtonSave = document.querySelector("#Save")
+const ContainerTask = document.querySelector("#Container-Task")
 let ListTask =  []
 
 try {
@@ -12,11 +13,14 @@ try {
 }
 
 function RenderCard() {
-    const ContainerTask = document.querySelector("#Container-Task")
+    
     const RanderTask = new Set()
 
     if (ListTask) {
         ContainerTask.innerHTML = ""; 
+
+        if(ListTask.length !==0) ContainerTask.style.display="flex";
+        
         
         ListTask.forEach(task => {
 
@@ -30,8 +34,8 @@ function RenderCard() {
                 </div>
                 <div class="Btn-Task">
                 
-                <button class="Btn-edit" onclick="Edit('${task.text}')">Editar</button>
-                <button class="Btn-delete" onclick="Remove('${task.text}')">delete</button>
+                <button class="Btn-edit" onclick="Edit('${task.text}')"><i class='bx bxs-edit' ></i></button>
+                <button class="Btn-delete" onclick="Remove('${task.text}')"><i class='bx bxs-trash-alt' ></i></button>
                 
                 </div>
                 `
@@ -43,14 +47,15 @@ function RenderCard() {
 }
 
 
-async function AddTask() {
-    const Task = await document.querySelector("#Task").value
-    if(!Task){
+ function AddTask() {
+    const Task =  document.querySelector("#Task")
+    const value = Task.value
+    if(!value){
         alert("Preencha o campo")
     }
     else{
-        ListTask.unshift({ text: Task })
-
+        ListTask.unshift({ text: value })
+        Task.value = ""
         localStorage.setItem("Task", JSON.stringify(ListTask))
         RenderCard()
        
@@ -64,6 +69,8 @@ function Remove(task) {
     const NewListTask = ListTask.filter(item => item.text !== task);
     localStorage.setItem("Task", JSON.stringify(NewListTask));
     ListTask = NewListTask
+
+    if(ListTask.length ==0) ContainerTask.style.display="none";
     RenderCard()
 }
 
@@ -96,6 +103,8 @@ function updateList(task){
 
 Button.addEventListener("click", (e) => {
     e.preventDefault()
+    
+    
     AddTask()
 })
 
@@ -105,8 +114,6 @@ ButtonSave.addEventListener("click", (e) =>{
      
 })
 RenderCard()
-
-
 
 
 
