@@ -1,6 +1,15 @@
 const Button = document.querySelector("button[type='submit']")
-let ListTask = JSON.parse(localStorage.getItem("Task")) || []
+const ButtonSave = document.querySelector("#Save")
+let ListTask =  []
 
+try {
+    const storedData = localStorage.getItem("Task");
+    if (storedData) {
+        ListTask = JSON.parse(storedData);
+    }
+} catch (error) {
+    console.error("Error parsing stored data:", error);
+}
 
 function RenderCard() {
     const ContainerTask = document.querySelector("#Container-Task")
@@ -21,7 +30,7 @@ function RenderCard() {
                 </div>
                 <div class="Btn-Task">
                 
-                <button class="Btn-edit" >Editar</button>
+                <button class="Btn-edit" onclick="Edit('${task.text}')">Editar</button>
                 <button class="Btn-delete" onclick="Remove('${task.text}')">delete</button>
                 
                 </div>
@@ -58,12 +67,46 @@ function Remove(task) {
     RenderCard()
 }
 
+function Edit (task){
+    document.querySelector("#Task2").value = task
+    document.querySelector(".Container2").className= "Container2-Active"
+    ButtonSave.onclick = () => updateList(task); 
+}
+
+
+
+function updateList(task){
+    const NewValue = document.querySelector("#Task2").value.trim()
+
+    if (NewValue) {
+    const NewListTask = ListTask.map(item =>{
+
+        if(item.text === task){
+            item.text = NewValue 
+        }
+        return item
+    })
+    
+     ListTask = NewListTask
+     localStorage.setItem("Task", JSON.stringify(ListTask))
+     RenderCard()
+    }
+   
+}
+
 Button.addEventListener("click", (e) => {
     e.preventDefault()
     AddTask()
 })
 
+ButtonSave.addEventListener("click", (e) =>{
+    e.preventDefault()
+     document.querySelector(".Container2-Active").className= "Container2"
+     
+})
 RenderCard()
+
+
 
 
 
