@@ -82,7 +82,7 @@ padding:1rem 5rem;
 .Container-Task{
     display: none;
     flex-direction: column;
-    background: rgba(85, 84, 84, 0.068);
+    background: rgba(85, 84, 84, 0.048);
     width: 93%;
     border-radius: 0.5rem;
     padding:2rem 1rem;
@@ -91,7 +91,7 @@ padding:1rem 5rem;
 }
 
 .Container-Task::-webkit-scrollbar {
-    width: 10px; 
+    width: 8px; 
 }
 
 
@@ -131,7 +131,6 @@ padding:1rem 5rem;
 
 .Btn-Task > button{
     padding: 1rem;
-    
     border-radius: 0.5rem;
     cursor: pointer;
     color: #fff;
